@@ -1,10 +1,10 @@
 <div id="range">
-	<div [ngStyle]="{position: 'relative', right:x , bottom:y }">
-		<img [src]='imgUrl' [ngStyle]="{filter: blur}" />
+	<div [ngStyle]="{position: 'relative', right:x , bottom:y }" (wheel)='onWheel($event)'>
+		<img [src]='imgUrl' [ngStyle]="{filter: blur , macHeight:zoom , maxWidth:zoom}" />
     </div>
 	</div>
 	<div class="slidecontainer">
 		<input type="range" min="0" max="100" id="blur" [(ngModel)]='blurVal' (change)='onBlurChange($event)' />
-    <input type="range" min="0" max="1000" id="x" [(ngModel)]='xVal' (change)='onXChange($event)' />
-    <input type="range" min="0" max="1000" id="y" [(ngModel)]='yVal' (change)='onYChange($event)' />
-	</div>
+		<input type="range" min="0" max="1000" id="x" [(ngModel)]='xVal' (change)='onXChange($event)' />
+		<input type="range" min="0" max="1000" id="y" [(ngModel)]='yVal' (change)='onYChange($event)' />
+	</div> 

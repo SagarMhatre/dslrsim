@@ -4,3 +4,5 @@
     overflow:hidden;
     border:1px solid black;
 }
+
+img {    max-width: 180%;    max-height: 180%;}
