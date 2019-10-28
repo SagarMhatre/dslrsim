@@ -2,8 +2,8 @@
   (mouseenter)="onEvent($event)"
                          (mouseleave)="onEvent($event)"
                          (mousemove)="coordinates($event)"
-                         on-click="onEvent($event)"
-                         on-dblclick="onEvent($event)"
+                         on-click="onClick($event)"
+                         on-dblclick="onDblClick($event)"
                          on-contextmenu="onEvent($event)">
   </div>
 <p class="dashboard"
@@ -11,6 +11,7 @@
 >
   {{cX}}
   {{cY}} 
+  {{eventString}}
 
 
 </p>

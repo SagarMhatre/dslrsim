@@ -10,11 +10,21 @@ export class Test2Component implements OnInit {
   private cX : number = 0;
   private cY : number = 0;
   event: MouseEvent;
-  //eventString : string
+  eventString : string
 
     onEvent(event: MouseEvent): void {
         this.event = event;
-        //this.eventString = JSON.stringify(this.event)
+        this.eventString = JSON.stringify(this.event)
+    }
+
+    onDblClick(event: MouseEvent): void {
+        this.event = event;
+        this.eventString = "Double click"
+    }
+
+    onClick(event: MouseEvent): void {
+        this.event = event;
+        this.eventString = "Single Click"
     }
 
     coordinates(event: MouseEvent): void {

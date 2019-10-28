@@ -1,0 +1,19 @@
+#camera {
+  position: absolute;
+  z-index: 9;
+  background-color: #080808;
+  border: 1px solid #d3d3d3;
+  text-align: center;
+  width: 120px;
+  height: 90px
+}
+
+#viewFinder{
+position: absolute;
+  width: 66%;
+  height : 75%;
+  top: 15px;
+  left: 15%;
+  z-index: 10;
+  background-color: rgb(247, 247, 248);
+}
