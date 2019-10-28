@@ -1,0 +1,12 @@
+
+div.solid {
+  border-style: solid;
+  height:300px;
+  width:100%
+  }
+
+p.dashboard {
+  border-style: solid;
+  height:100px;
+  width:100%
+  }  
