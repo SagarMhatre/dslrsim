@@ -22,15 +22,25 @@ export class TestComponent implements OnInit {
     "https://wallpaperfx.com/view_image/meteora-greece-landscape-1920x1200-wallpaper-18403.jpg";
 
   zoom: string = "100%";
+  brightness : string = "";
+  filter : string = this.blur + " " + this.brightness;
 
   blurVal: number = 0;
+  brightnessVal: number = 100;
   xVal: number = 0;
   yVal: number = 0;
   zoomVal: number = 1;
 
   onBlurChange($event) {
     this.blur = "blur(" + this.blurVal / 20 + "px)";
+    this.filter = this.blur + " " + this.brightness;
   }
+
+  onBrightnessChange($event) {
+    this.brightness = "brightness(" + this.brightnessVal + "%)";
+    this.filter = this.blur + " " + this.brightness;
+  }
+
   onXChange($event) {
     this.x = +this.xVal + "px";
   }

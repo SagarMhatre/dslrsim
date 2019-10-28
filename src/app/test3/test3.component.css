@@ -17,3 +17,9 @@ position: absolute;
   z-index: 10;
   background-color: rgb(247, 247, 248);
 }
+
+#scene{
+  border-style: solid;
+  height:3000px;
+  width:4000px
+}
