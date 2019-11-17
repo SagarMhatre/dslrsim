@@ -1,5 +1,5 @@
-<div [ngStyle]="cameraStyle" >
-  <div [ngStyle]="viewerStyle">
+<div [ngStyle]="cameraStyle"  (wheel)='onZoom($event)'>
+  <div [ngStyle]="viewerStyle"  (wheel)='onFocus($event)'>
     <img [ngStyle]="projectedImageStyle" [src] = 'projectedImageURL' />
   </div>
 </div>

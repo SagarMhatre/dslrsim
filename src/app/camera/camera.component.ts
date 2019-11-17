@@ -14,14 +14,15 @@ export class CameraComponent implements OnInit {
   };
   viewerImageURL =
     "https://img.etimg.com/thumb/msid-68721417,width-643,imgsize-1016106,resizemode-4/nature1_gettyimages.jpg";
+
   viewer = {
-    width: 0,
-    height: 0,
-    left: 0,
-    top: 0,
+    width: 0, imageWidth : 0,
+    height: 0, imageHeight : 0,
+    imageLeft: 0,
+    imageTop: 0,
     maxLeft: 0,
     maxTop: 0,
-    zoom: 100,
+    zoom: 1, minZoom : 0 , maxZoom:2,
     brightness: 100,
     blur: 0
   };
@@ -100,7 +101,10 @@ export class CameraComponent implements OnInit {
       }
     );
 
-    if (viewerLoadedImage != null) {
+    if (viewerLoadedImage != null) { 
+      this.viewer.imageHeight = viewerLoadedImage.height ;
+      this.viewer.imageWidth = viewerLoadedImage.width ;
+
       this.projectedImageStyle.width = viewerLoadedImage.width + "px";
       this.projectedImageStyle.height = viewerLoadedImage.height + "px";
 
@@ -109,8 +113,55 @@ export class CameraComponent implements OnInit {
 
       // console.log(JSON.stringify(this.viewer));
       // console.log(JSON.stringify(this.projectedImageStyle));
+
+      this.setZoom(1.00);
+
       this.projectedImageURL = this.viewerImageURL;
     }
+  }
+
+  onFocus(event) {
+    
+      event.stopPropagation();
+  }
+
+  onZoom(event) {
+    if (this.viewer.width > 0) {
+      var targetZoom = this.viewer.zoom;
+      if (event.deltaY < 0) {
+        targetZoom = this.viewer.zoom - 0.01;
+      } else if (event.deltaY > 0) {
+        targetZoom = this.viewer.zoom + 0.01;
+      }
+      this.setZoom(targetZoom);
+      event.stopPropagation();
+    }
+  }
+
+  setZoom(targetZoom: number) {
+
+    console.log('before zoom' , targetZoom, JSON.stringify(this.viewer), JSON.stringify(this.projectedImageStyle));
+    if (targetZoom < this.viewer.minZoom) {
+      targetZoom = this.viewer.minZoom;
+    } else if (targetZoom > this.viewer.maxZoom) {
+      targetZoom = this.viewer.maxZoom; 
+    }
+
+    var diff = this.viewer.zoom - targetZoom;
+    this.viewer.zoom = targetZoom;
+    this.viewer.imageLeft =  this.viewer.imageLeft + (diff * 0.5 * this.viewer.width);
+    this.viewer.imageTop = this.viewer.imageTop + (diff * 0.5 * this.viewer.height); 
+    
+    this.projectedImageStyle.width = (this.viewer.zoom) * this.viewer.imageWidth + "px"; 
+    this.projectedImageStyle.height = (this.viewer.zoom) * this.viewer.imageHeight + "px";
+    this.projectedImageStyle.top = this.viewer.imageTop + "px";
+    this.projectedImageStyle.left = this.viewer.imageLeft + "px";
+
+    console.log('after zoom' , JSON.stringify(this.viewer), JSON.stringify(this.projectedImageStyle));
+  }
+
+  random(min, max) { // min and max included 
+    return Math.floor(Math.random() * (max - min + 1) + min);
   }
 
   loadImage(url) {
