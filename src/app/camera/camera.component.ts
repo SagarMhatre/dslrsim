@@ -51,6 +51,15 @@ export class CameraComponent implements OnInit {
     backgroundColor: "white"
   };
 
+  exposureButtonStyle = {
+    height: "5%",
+    width: "5%",
+    position: "absolute",
+    left: "63.5%",
+    top: "47.4%"
+    //,border:'solid',    backgroundColor: "white"
+  }
+
   projectedImageStyle = {
     width: "",
     height: "",
@@ -133,9 +142,7 @@ export class CameraComponent implements OnInit {
       } else if (event.deltaY > 0) {
         this.viewer.blur = this.viewer.blur + 1;
       }
-      var blur = "blur(" + Math.abs(this.viewer.blur) + "px)";
-      var filter = blur;
-      this.projectedImageStyle.filter = filter;
+      this.modifyFilter();
       event.stopPropagation();
       console.log(
         "after focus",
@@ -143,6 +150,30 @@ export class CameraComponent implements OnInit {
         JSON.stringify(this.projectedImageStyle)
       );
     }
+  }
+
+  onExposure(event) {
+    if (this.viewer.width > 0) {
+      if (event.deltaY < 0) {
+        this.viewer.brightness = this.viewer.brightness - 1;
+      } else if (event.deltaY > 0) {
+        this.viewer.brightness = this.viewer.brightness + 1;
+      }
+      this.modifyFilter();
+      event.stopPropagation();
+      console.log(
+        "after brightness",
+        JSON.stringify(this.viewer),
+        JSON.stringify(this.projectedImageStyle)
+      );
+    }
+  }
+
+  modifyFilter(){
+      var blur = "blur(" + Math.abs(this.viewer.blur) + "px)";
+      var brightness =  "brightness(" + this.viewer.brightness + "%)";
+      var filter = blur + brightness;
+      this.projectedImageStyle.filter = filter;
   }
 
   onZoom(event) {

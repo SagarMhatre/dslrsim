@@ -1,4 +1,5 @@
 <div [ngStyle]="cameraStyle"  (wheel)='onZoom($event)'>
+  <div [ngStyle]="exposureButtonStyle"  (wheel)='onExposure($event)' ></div>
   <div [ngStyle]="viewerStyle"  (wheel)='onFocus($event)'>
     <img [ngStyle]="projectedImageStyle" [src] = 'projectedImageURL' />
   </div>
