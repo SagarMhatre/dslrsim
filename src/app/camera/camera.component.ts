@@ -1,44 +1,67 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: 'camera',
-  templateUrl: './camera.component.html',
-  styleUrls: ['./camera.component.css']
+  selector: "camera",
+  templateUrl: "./camera.component.html",
+  styleUrls: ["./camera.component.css"]
 })
 export class CameraComponent implements OnInit {
-
-  cameraBodyImageURL = 'https://www.canon.co.uk/media/canon-eos-4000d-spec-back-camera_tcm14-1648755.png';
-  viewerImageURL = 'https://img.etimg.com/thumb/msid-68721417,width-643,imgsize-1016106,resizemode-4/nature1_gettyimages.jpg';
+  cameraBodyImageURL =
+    "https://www.canon.co.uk/media/canon-eos-4000d-spec-back-camera_tcm14-1648755.png";
+  camera = {
+    width: 0,
+    height: 0
+  };
+  viewerImageURL =
+    "https://img.etimg.com/thumb/msid-68721417,width-643,imgsize-1016106,resizemode-4/nature1_gettyimages.jpg";
+  viewer = {
+    width: 0,
+    height: 0,
+    left: 0,
+    top: 0,
+    maxLeft: 0,
+    maxTop: 0,
+    zoom: 100,
+    brightness: 100,
+    blur: 0
+  };
+  projectedImageURL = "";
 
   cameraStyle = {
-    borderStyle: 'solid',
-    background : '' , // 'url(\'' + this.cameraBodyImage + '\')',
-    height: '',
-    width : '',
-    position: 'relative'
+    borderStyle: "solid",
+    background: "",
+    height: "",
+    width: "",
+    position: "relative"
   };
 
   viewerStyle = {
-    background :  'url(\'' + this.viewerImageURL + '\')',
-    backgroundSize: '50% 50%',
-    backgroundPosition : '50% 50%',
-    borderStyle: 'solid',
-    height: '32%',
-    width : '41.5%',
-    position : 'absolute',
-    left: '12%',
-    top:'48%',
-    backgroundRepeat: 'no-repeat'
-  }
+    height: "32%",
+    width: "42%",
+    position: "absolute",
+    left: "12%",
+    top: "48%",
+    //,backgroundRepeat: 'no-repeat'
+    overflow: "hidden",
+    backgroundColor: "white"
+  };
 
-  constructor() { }
+  projectedImageStyle = {
+    width: "",
+    height: "",
+    top: "",
+    left: "",
+    position: "relative"
+  };
+
+  constructor() {}
 
   async ngOnInit() {
-       this.loadCameraBody();
-       this.loadViewer();
+    this.loadCameraBody();
+    //this.loadViewer();
   }
 
-  async loadCameraBody(){
+  async loadCameraBody() {
     var cameraBody = await this.loadImage(this.cameraBodyImageURL).then(
       function fulfilled(img: HTMLImageElement) {
         console.log("That image is found and loaded", img);
@@ -52,13 +75,19 @@ export class CameraComponent implements OnInit {
     );
 
     if (cameraBody != null) {
-      this.cameraStyle.height = cameraBody.height + 'px';
-      this.cameraStyle.width = cameraBody.width + 'px';
-      this.cameraStyle.background = 'url(\'' + this.cameraBodyImageURL + '\')';
-    } 
+      this.camera.height = cameraBody.height;
+      this.camera.width = cameraBody.width;
+      this.cameraStyle.height = cameraBody.height + "px";
+      this.cameraStyle.width = cameraBody.width + "px";
+      this.cameraStyle.background = "url('" + this.cameraBodyImageURL + "')";
+      this.viewer.height = 0.32 * cameraBody.height;
+      this.viewer.width = 0.42 * cameraBody.width;
+
+      this.loadViewer();
+    }
   }
-  
-  async loadViewer(){
+
+  async loadViewer() {
     var viewerLoadedImage = await this.loadImage(this.viewerImageURL).then(
       function fulfilled(img: HTMLImageElement) {
         console.log("That image is found and loaded", img);
@@ -72,12 +101,19 @@ export class CameraComponent implements OnInit {
     );
 
     if (viewerLoadedImage != null) {
-      this.viewerStyle.backgroundSize = viewerLoadedImage.width  + 'px ' + viewerLoadedImage.height + 'px';
-      this.viewerStyle.background = 'url(\'' + this.viewerImageURL + '\')';
-    } 
+      this.projectedImageStyle.width = viewerLoadedImage.width + "px";
+      this.projectedImageStyle.height = viewerLoadedImage.height + "px";
+
+      this.viewer.maxLeft = -1 * viewerLoadedImage.width + this.viewer.width;
+      this.viewer.maxTop = -1 * viewerLoadedImage.height + this.viewer.height;
+
+      // console.log(JSON.stringify(this.viewer));
+      // console.log(JSON.stringify(this.projectedImageStyle));
+      this.projectedImageURL = this.viewerImageURL;
+    }
   }
 
-    loadImage(url) {
+  loadImage(url) {
     // Define the promise
     const imgPromise = new Promise(function imgPromise(resolve, reject) {
       // Create the image
@@ -96,5 +132,4 @@ export class CameraComponent implements OnInit {
 
     return imgPromise;
   }
-
 }
