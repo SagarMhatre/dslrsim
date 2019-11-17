@@ -12,8 +12,9 @@ export class CameraComponent implements OnInit {
     width: 0,
     height: 0
   };
-  viewerImageURL =
-    "https://img.etimg.com/thumb/msid-68721417,width-643,imgsize-1016106,resizemode-4/nature1_gettyimages.jpg";
+  
+  viewerImageURL = "https://www.targetphoto.com/pub/media/wysiwyg/Targetphoto/target_footer_logo.png";
+  //    "https://img.etimg.com/thumb/msid-68721417,width-643,imgsize-1016106,resizemode-4/nature1_gettyimages.jpg";
 
   viewer = {
     width: 0,
@@ -30,6 +31,7 @@ export class CameraComponent implements OnInit {
     brightness: 100,
     blur: 0
   };
+
   projectedImageURL = "";
 
   cameraStyle = {
@@ -51,23 +53,25 @@ export class CameraComponent implements OnInit {
     backgroundColor: "white"
   };
 
-   handleStyle= {
-    height: "40%",
-    width: "22%",
+  handleStyle = {
+    height: "46%",
+    width: "25%",
     position: "absolute",
-    left: "73.5%",
-    top: "47.4%"
-    ,border:'solid',    backgroundColor: "white"
-  }
+    left: "70%",
+    top: "37.4%",
+    border: "solid",
+    backgroundColor: "white"
+  };
 
   exposureButtonStyle = {
     height: "5%",
     width: "5%",
     position: "absolute",
     left: "63.5%",
-    top: "47.4%"
-    ,border:'solid',    backgroundColor: "white"
-  }
+    top: "47.4%",
+    border: "solid",
+    backgroundColor: "white"
+  };
 
   projectedImageStyle = {
     width: "",
@@ -85,30 +89,60 @@ export class CameraComponent implements OnInit {
     //this.loadViewer();
   }
 
-  private cX : number = 0;
-  private cY : number = 0;
-  event: MouseEvent;
-  eventString : string
+  private cX: number = 0;
+  private cY: number = 0;
+  //event: MouseEvent;
+  eventString: string;
+  isMouseDown: boolean = false;
 
-    onEvent(event: MouseEvent): void {
-        this.event = event;
-        this.eventString = JSON.stringify(this.event)
-    }
+  onMouseDown(event: MouseEvent): void {
+    //this.event = event;
+    this.eventString = "Mouse Down";
+    this.isMouseDown = true;
+    this.cX = event.clientX;
+    this.cY = event.clientY;
+    console.log(this.eventString, this.cX, this.cY);
+  }
 
-    onDblClick(event: MouseEvent): void {
-        this.event = event;
-        this.eventString = "Double click"
-    }
+  onMouseUp(event: MouseEvent): void {
+    //this.event = event;
+    this.eventString = "Mouse Up";
+    this.isMouseDown = false;
+    //this.print();
+  }
 
-    onClick(event: MouseEvent): void {
-        this.event = event;
-        this.eventString = "Single Click"
-    }
+  onMouseLeave(event: MouseEvent): void {
+    //this.event = event;
+    this.eventString = "Mouse Left";
+    this.isMouseDown = false;
+    //this.print();
+  }
 
-    coordinates(event: MouseEvent): void {
-        this.cX = event.clientX;
-        this.cY = event.clientY;
+  moveImage(newX: number, newY: number) {
+    var xDiff = this.cX - newX;
+    var yDiff = this.cY - newY;
+    this.cX = newX;
+    this.cY = newY;
+    this.moveProjectedImage(xDiff, yDiff);
+  }
+
+  moveProjectedImage(xDiff: number, yDiff: number) {
+    console.log("moveProjectedImage", xDiff, yDiff);
+    var newX = this.viewer.imageLeft + xDiff;
+    var newY = this.viewer.imageTop + yDiff;
+
+    this.projectedImageStyle.left = newX + "px";
+    this.projectedImageStyle.top = newY + "px";
+
+    this.viewer.imageLeft = newX;
+    this.viewer.imageTop = newY;
+  }
+  coordinates(event: MouseEvent): void {
+    if (this.isMouseDown) {
+      console.log(this.eventString, this.cX, this.cY);
+      this.moveImage(event.clientX, event.clientY);
     }
+  }
 
   async loadCameraBody() {
     var cameraBody = await this.loadImage(this.cameraBodyImageURL).then(
@@ -203,11 +237,11 @@ export class CameraComponent implements OnInit {
     }
   }
 
-  modifyFilter(){
-      var blur = "blur(" + Math.abs(this.viewer.blur) + "px)";
-      var brightness =  "brightness(" + this.viewer.brightness + "%)";
-      var filter = blur + brightness;
-      this.projectedImageStyle.filter = filter;
+  modifyFilter() {
+    var blur = "blur(" + Math.abs(this.viewer.blur) + "px)";
+    var brightness = "brightness(" + this.viewer.brightness + "%)";
+    var filter = blur + brightness;
+    this.projectedImageStyle.filter = filter;
   }
 
   onZoom(event) {
@@ -238,10 +272,14 @@ export class CameraComponent implements OnInit {
 
     var diff = this.viewer.zoom - targetZoom;
     this.viewer.zoom = targetZoom;
+
     this.viewer.imageLeft =
-      this.viewer.imageLeft + diff * 0.5 * this.viewer.width;
+      //this.viewer.imageLeft + diff * 0.5 * this.viewer.width;
+      this.viewer.imageLeft - targetZoom * 0.5 * this.viewer.width;
+      
     this.viewer.imageTop =
-      this.viewer.imageTop + diff * 0.5 * this.viewer.height;
+      //this.viewer.imageTop + diff * 0.5 * this.viewer.height;
+      this.viewer.imageTop - targetZoom * 0.5 * this.viewer.height;
 
     this.projectedImageStyle.width =
       this.viewer.zoom * this.viewer.imageWidth + "px";

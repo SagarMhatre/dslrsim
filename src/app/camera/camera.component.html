@@ -1,8 +1,12 @@
 <div [ngStyle]="cameraStyle" (wheel)='onZoom($event)'>
+<!-- <div>  <input type='text' [ng]</div> -->
 	<div [ngStyle]="exposureButtonStyle" (wheel)='onExposure($event)'></div>
-	<div [ngStyle]="handleStyle" (mouseenter)="onEvent($event)" (mouseleave)="onEvent($event)"
-		(mousemove)="coordinates($event)" on-click="onClick($event)" on-dblclick="onDblClick($event)"
-		on-contextmenu="onEvent($event)"></div>
+	<div [ngStyle]="handleStyle" 
+    (mousedown)= 'onMouseDown($event)'
+    (mouseup)= 'onMouseUp($event)'    
+    (mouseleave)="onMouseLeave($event)"
+		(mousemove)="coordinates($event)" 
+    ></div>
 	<div [ngStyle]="viewerStyle" (wheel)='onFocus($event)'>
 		<img [ngStyle]="projectedImageStyle" [src] = 'projectedImageURL' />
   </div>
