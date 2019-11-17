@@ -51,13 +51,22 @@ export class CameraComponent implements OnInit {
     backgroundColor: "white"
   };
 
+   handleStyle= {
+    height: "40%",
+    width: "22%",
+    position: "absolute",
+    left: "73.5%",
+    top: "47.4%"
+    ,border:'solid',    backgroundColor: "white"
+  }
+
   exposureButtonStyle = {
     height: "5%",
     width: "5%",
     position: "absolute",
     left: "63.5%",
     top: "47.4%"
-    //,border:'solid',    backgroundColor: "white"
+    ,border:'solid',    backgroundColor: "white"
   }
 
   projectedImageStyle = {
@@ -75,6 +84,31 @@ export class CameraComponent implements OnInit {
     this.loadCameraBody();
     //this.loadViewer();
   }
+
+  private cX : number = 0;
+  private cY : number = 0;
+  event: MouseEvent;
+  eventString : string
+
+    onEvent(event: MouseEvent): void {
+        this.event = event;
+        this.eventString = JSON.stringify(this.event)
+    }
+
+    onDblClick(event: MouseEvent): void {
+        this.event = event;
+        this.eventString = "Double click"
+    }
+
+    onClick(event: MouseEvent): void {
+        this.event = event;
+        this.eventString = "Single Click"
+    }
+
+    coordinates(event: MouseEvent): void {
+        this.cX = event.clientX;
+        this.cY = event.clientY;
+    }
 
   async loadCameraBody() {
     var cameraBody = await this.loadImage(this.cameraBodyImageURL).then(
