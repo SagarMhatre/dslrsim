@@ -10,9 +10,10 @@ import { Test3Component } from './test3/test3.component';
 import { Test4Component } from './test4/test4.component';
 import { ViewFinderComponent } from './view-finder/view-finder.component';
 import { CameraComponent } from './camera/camera.component';
+import {YouTubePlayerModule} from '@angular/youtube-player';
 
 @NgModule({
-  imports:      [ BrowserModule, FormsModule ],
+  imports:      [ BrowserModule, FormsModule ,YouTubePlayerModule],
   declarations: [ AppComponent, HelloComponent, TestComponent, Test2Component, Test3Component, Test4Component, ViewFinderComponent, CameraComponent ],
   bootstrap:    [ AppComponent ]
 })
