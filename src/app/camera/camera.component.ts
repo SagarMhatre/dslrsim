@@ -6,6 +6,9 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./camera.component.css"]
 })
 export class CameraComponent implements OnInit {
+
+// Ref : zoom in & out - https://stackoverflow.com/a/30039971
+
   cameraBodyImageURL =
     "https://www.canon.co.uk/media/canon-eos-4000d-spec-back-camera_tcm14-1648755.png";
   camera = {
@@ -13,8 +16,8 @@ export class CameraComponent implements OnInit {
     height: 0
   };
   
-  viewerImageURL = "https://www.targetphoto.com/pub/media/wysiwyg/Targetphoto/target_footer_logo.png";
-  //    "https://img.etimg.com/thumb/msid-68721417,width-643,imgsize-1016106,resizemode-4/nature1_gettyimages.jpg";
+  viewerImageURL = //"https://www.targetphoto.com/pub/media/wysiwyg/Targetphoto/target_footer_logo.png";
+      "https://img.etimg.com/thumb/msid-68721417,width-643,imgsize-1016106,resizemode-4/nature1_gettyimages.jpg";
 
   viewer = {
     width: 0,
@@ -58,9 +61,9 @@ export class CameraComponent implements OnInit {
     width: "25%",
     position: "absolute",
     left: "70%",
-    top: "37.4%",
-    border: "solid",
-    backgroundColor: "white"
+    top: "37.4%"
+    ,border: "solid"
+    ,backgroundColor: "white"
   };
 
   exposureButtonStyle = {
