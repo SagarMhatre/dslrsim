@@ -19,6 +19,8 @@ export class CameraComponent implements OnInit {
   viewerImageURL = //"https://www.targetphoto.com/pub/media/wysiwyg/Targetphoto/target_footer_logo.png";
       "https://img.etimg.com/thumb/msid-68721417,width-643,imgsize-1016106,resizemode-4/nature1_gettyimages.jpg";
 
+      
+
   viewer = {
     width: 0,
     imageWidth: 0,

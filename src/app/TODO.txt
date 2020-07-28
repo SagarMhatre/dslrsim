@@ -1,0 +1,29 @@
+Camera position - Bottom right
+    On window resize , Camera must be at bottom right
+    Camera should not get resized on window resize
+Camera orientation
+    Small box on right bottom should flip orientation between Potrait & Landscape
+    In portrait , Camera Bottom should be on Right 
+    The video in the viewfinder must not change it's orientation when camera orientation changes
+Play video in viewfinder
+    start , end, x , y, width, height , rotate , flip_horizontal , flip_vertical, speed, id, quality
+    Click on video should NOT pause the video
+    Keyboard shortcuts must control video 
+        space - pause
+        , - slower
+        . - faster
+        m - 5 sec back
+        / - 5 sec ahead
+    Playlist
+Camera controls
+    Move video up down left right - handle in Potrait & Landscape orientation of the camera - video should still play with it's own orientation
+    But only within the bounds
+    Zoom from center only
+    Focus
+    Exposure
+Capture Image
+    Store in memory 
+    Upto 20 images
+    Playback button - show clicked images
+    button to scroll 
+    button to dnld / delete image 
