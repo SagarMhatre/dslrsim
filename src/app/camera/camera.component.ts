@@ -19,7 +19,7 @@ export class CameraComponent implements OnInit {
   viewerImageURL = //"https://www.targetphoto.com/pub/media/wysiwyg/Targetphoto/target_footer_logo.png";
       "https://img.etimg.com/thumb/msid-68721417,width-643,imgsize-1016106,resizemode-4/nature1_gettyimages.jpg";
 
-      
+
 
   viewer = {
     width: 0,
@@ -74,6 +74,16 @@ export class CameraComponent implements OnInit {
     position: "absolute",
     left: "63.5%",
     top: "47.4%",
+    border: "solid",
+    backgroundColor: "white"
+  };
+
+  centerStyle = {
+    height: "5%",
+    width: "5%",
+    position: "absolute",
+    left: "47.5%",
+    top: "47.5%",
     border: "solid",
     backgroundColor: "white"
   };
@@ -277,7 +287,7 @@ export class CameraComponent implements OnInit {
 
     var diff = this.viewer.zoom - targetZoom;
     this.viewer.zoom = targetZoom;
-
+/*
     this.viewer.imageLeft =
       //this.viewer.imageLeft + diff * 0.5 * this.viewer.width;
       this.viewer.imageLeft - targetZoom * 0.5 * this.viewer.width;
@@ -286,12 +296,17 @@ export class CameraComponent implements OnInit {
       //this.viewer.imageTop + diff * 0.5 * this.viewer.height;
       this.viewer.imageTop - targetZoom * 0.5 * this.viewer.height;
 
+    this.projectedImageStyle.top = this.viewer.imageTop + "px";
+    this.projectedImageStyle.left = this.viewer.imageLeft + "px";
+
+    */
+
     this.projectedImageStyle.width =
       this.viewer.zoom * this.viewer.imageWidth + "px";
     this.projectedImageStyle.height =
       this.viewer.zoom * this.viewer.imageHeight + "px";
-    this.projectedImageStyle.top = this.viewer.imageTop + "px";
-    this.projectedImageStyle.left = this.viewer.imageLeft + "px";
+
+
 
     console.log(
       "after zoom",

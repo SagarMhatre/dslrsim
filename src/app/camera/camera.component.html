@@ -1,19 +1,26 @@
 <div [ngStyle]="cameraStyle" (wheel)='onZoom($event)'>
 <!-- <div>  <input type='text' [ng]</div> -->
 	<div [ngStyle]="exposureButtonStyle" (wheel)='onExposure($event)'></div>
-	<div [ngStyle]="handleStyle" 
+	
+  <div [ngStyle]="handleStyle" 
     (mousedown)= 'onMouseDown($event)'
     (mouseup)= 'onMouseUp($event)'    
     (mouseleave)="onMouseLeave($event)"
 		(mousemove)="coordinates($event)" 
     ></div>
+
 	<div [ngStyle]="viewerStyle" (wheel)='onFocus($event)'>
 		<!-- <img [ngStyle]="projectedImageStyle" [src] = 'projectedImageURL' /> -->
 
-<iframe  [ngStyle]="projectedImageStyle" src="https://www.youtube.com/embed/ClhZhExTnlE" 
-allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <iframe  [ngStyle]="projectedImageStyle" src="https://www.youtube.com/embed/UyZfCrrdbm8" 
+  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+  
+  <div [ngStyle]="centerStyle" ></div>
+  
+  </iframe>
 
-<!-- ClhZhExTnlE -->
+<!-- UyZfCrrdbm8 -->
+<!-- TJMKUdS1REg -->
 
   </div>
 	</div>
