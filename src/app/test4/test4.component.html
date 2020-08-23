@@ -1,5 +1,25 @@
 <p>Hello</p>
 <br>
+<youtube-player 
+  id= "ytplayer"
+  [videoId]="videoId"
+  [height]="height"
+  [width]="width"
+  [startSeconds]="startSeconds"
+  [endSeconds]="endSeconds"
+  [playerVars]="playerVars"
 
-<youtube-player videoId="_05v0mrNLh0">
-        </youtube-player>
+
+></youtube-player>
+
+<br>
+
+<button (click)="play($event)">Play</button>
+<button (click)="pause($event)">Pause</button>
+<button (click)="setPlaybackRate($event)">Play Back Rate</button>
+
+  <!-- 
+    [suggestedQuality] ="suggestedQuality"
+      
+  [showBeforeIframeApiLoads]="showBeforeIframeApiLoads"
+    -->

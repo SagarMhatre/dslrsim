@@ -11,10 +11,11 @@ import { Test4Component } from './test4/test4.component';
 import { ViewFinderComponent } from './view-finder/view-finder.component';
 import { CameraComponent } from './camera/camera.component';
 import {YouTubePlayerModule} from '@angular/youtube-player';
+import { Test5Component } from './test5/test5.component';
 
 @NgModule({
   imports:      [ BrowserModule, FormsModule ,YouTubePlayerModule],
-  declarations: [ AppComponent, HelloComponent, TestComponent, Test2Component, Test3Component, Test4Component, ViewFinderComponent, CameraComponent ],
+  declarations: [ AppComponent, HelloComponent, TestComponent, Test2Component, Test3Component, Test4Component, ViewFinderComponent, CameraComponent, Test5Component ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }
